@@ -85,6 +85,11 @@ public class MainModel implements MainContractorInterface {
             @Override
             public boolean onQueryTextChange(String newText) {
 
+
+/*Temporarily,I have Commented below code as currently it is creating thread intruption conflict with above publishsubject method and causing error in search sometimes(search while type and search after search button pressed) not always, otherwise it works fine too. */
+
+
+
             // publishSubject.onNext(newText);
                 return true;
             }
