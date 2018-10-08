@@ -55,7 +55,7 @@ public class MainModel implements MainContractorInterface {
                     @Override
                     public Observable<Wikiresponse> apply(@NonNull String s) throws Exception {
                         return NetworkClient.getRetrofit().create(NetworkInterface.class)
-                                .getWikiResults(s).onErrorResumeNext(Observable.<Wikiresponse>empty());
+                                .getWikiResults(s);
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -85,7 +85,17 @@ public class MainModel implements MainContractorInterface {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-            publishSubject.onNext(newText);
+
+
+         // Below function is for displayionh search result while user type.
+
+ /*For now,I have commented below code as its known rxadroid issue as
+  it creates exception "interrupted thresd exception
+  and disable whole searching proces in between due to this exception */
+
+            //publishSubject.onNext(newText);
+
+
                 return true;
             }
         });
