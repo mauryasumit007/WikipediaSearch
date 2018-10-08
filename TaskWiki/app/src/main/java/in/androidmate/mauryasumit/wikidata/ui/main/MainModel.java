@@ -89,9 +89,9 @@ public class MainModel implements MainContractorInterface {
 
          // Below function is for displayionh search result while user type.
 
- /*For now,I have commented below code as its known rxadroid issue as
-  it creates exception "interrupted thresd exception
-  and disable whole searching proces in between due to this exception */
+/*For now,I have commented below code as it is creating a known rxjava issue and it is creating exception "interrupted thread exception
+ and disable whole searching process in between which is creating bad user experience .  */
+
 
             //publishSubject.onNext(newText);
 
