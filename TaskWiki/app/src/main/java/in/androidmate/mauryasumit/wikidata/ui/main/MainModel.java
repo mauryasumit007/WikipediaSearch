@@ -24,7 +24,6 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 public class MainModel implements MainContractorInterface {
-    Wikiresponse wikiresponse;
 
 
     @Override
@@ -48,6 +47,7 @@ public class MainModel implements MainContractorInterface {
                             return true;
                         }
                     }
+
                 })
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
@@ -55,7 +55,7 @@ public class MainModel implements MainContractorInterface {
                     @Override
                     public Observable<Wikiresponse> apply(@NonNull String s) throws Exception {
                         return NetworkClient.getRetrofit().create(NetworkInterface.class)
-                                .getWikiResults(s);
+                                .getWikiResults(s).onErrorResumeNext(Observable.<Wikiresponse>empty());
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -85,12 +85,7 @@ public class MainModel implements MainContractorInterface {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-
-/*Temporarily,I have Commented below code as currently it is creating thread intruption conflict with above publishsubject method and causing error in search sometimes(search while type and search after search button pressed) not always, otherwise it works fine too. */
-
-
-
-            // publishSubject.onNext(newText);
+            publishSubject.onNext(newText);
                 return true;
             }
         });
@@ -133,3 +128,4 @@ public class MainModel implements MainContractorInterface {
 
 
 }
+
